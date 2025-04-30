@@ -1,0 +1,155 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+.contactcenter-layout {
+    position: relative;
+    width: 95%;
+    left: 80px;
+    display: flex;
+}
+
+.main {
+    flex: 1;
+    padding: 24px;
+    background-color: #fff;
+    min-height: 100vh;
+    font-family: sans-serif;
+}
+
+.contactcenter-header {
+    display: flex;
+    top: 28px;
+    left: 44px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    position: relative;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    color: #6A6B70;
+}
+
+.contactcenter-content {
+    width: 100%;
+    padding: 20px;
+}
+
+.contactcenter-main {
+    display: flex;
+    position:relative;
+    top: 45px;
+    gap: 20px;
+}
+
+.contactcenter-layout {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .contactcenter-content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .contactcenter-header {
+    margin-bottom: 20px;
+  }
+  
+  .contactcenter-main {
+    display: flex;
+  }
+  
+  .contactcenter-chat-list {
+    width: 25%;
+    border-right: 1px solid #ccc;
+  }
+  
+  .contactcenter-chat-item {
+    position: relative;
+    top: 10px;
+    border-radius: 50px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .contactcenter-chat-item.active {
+    background-color: #f0f0f0;
+  }
+  
+  .contactcenter-chat-name {
+    font-weight: bold;
+  }
+  
+  .contactcenter-chat-preview {
+    color: #555;
+  }
+  
+  .contactcenter-chat-window {
+    width: 50%;
+    padding: 20px;
+  }
+  
+  .contactcenter-chat-thread {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+  }
+  
+  .contactcenter-chat-message {
+    margin-bottom: 10px;
+  }
+  
+  .contactcenter-chat-message.from-user {
+    background-color: #d1f7d1;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .contactcenter-chat-message.from-admin {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .contactcenter-username {
+    font-weight: bold;
+  }
+  
+  .contactcenter-timestamp {
+    font-size: 0.8rem;
+    color: #888;
+  }
+  
+  .contactcenter-chat-input {
+    display: flex;
+  }
+  
+  .contactcenter-chat-input input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  .contactcenter-chat-input button {
+    padding: 10px;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+  
+  .contactcenter-chat-details {
+    width: 25%;
+    padding: 20px;
+  }
+  
+  .contactcenter-chat-details select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  

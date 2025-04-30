@@ -1,0 +1,187 @@
+.Team-layout {
+    position: relative;
+    width: 95%;
+    left: 70px;
+    display: flex;
+  }
+  
+  .main {
+    flex: 1;
+    padding: 24px;
+    background-color: #fff;
+    min-height: 100vh;
+    font-family: sans-serif;
+  }
+  
+  .team-header {
+    display: flex;
+    left: 24px;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    position: relative;
+    font-size: 18px;
+  }
+  
+  .team-header h2 {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .add-team-button-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .add-button {
+    background-color: #1d4ed8;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .add-button:hover {
+    background-color: #2563eb;
+  }
+  
+  .team-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  
+  .team-table th,
+  .team-table td {
+    padding: 12px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .team-table th {
+    color: #1e3a8a;
+    font-weight: 600;
+    text-align: left;
+    background-color: #f9fafb;
+  }
+  
+  .avatar-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .avatar-name img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .admin-row {
+    background-color: #eff6ff;
+  }
+  
+  .actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .edit-btn,
+  .delete-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .edit-btn {
+    color: #2563eb;
+  }
+  
+  .delete-btn {
+    color: #dc2626;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  .modal {
+    background-color: white;
+    padding: 32px;
+    width: 460px;
+    border-radius: 16px;
+    box-shadow: 0 0 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .modal-title {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+  
+  .modal-description {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 24px;
+  }
+  
+  .modal-inputs label {
+    display: block;
+    font-size: 13px;
+    margin-bottom: 6px;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .modal-inputs input,
+  .modal-inputs select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  
+  .modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 10px;
+  }
+  
+  .modal-actions .cancel {
+    background: #f3f4f6;
+    color: #111;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  
+  .modal-actions .add {
+    background-color: #1d4ed8;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  

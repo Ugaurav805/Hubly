@@ -1,0 +1,235 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
+
+* {
+  font-family: "Inter", sans-serif;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.Setting-layout {
+  display: flex;
+  background-color: #f8f9fc;
+}
+
+.Setting-content {
+  flex: 1;
+  padding: 2rem 3rem;
+  background-color: #fff;
+  min-height: 100vh;
+  position: relative;
+}
+
+.Settingprofile-header h1 {
+  margin-bottom: 0.3rem;
+  font-size: 18px;
+  color: #184e7f;
+  position: absolute;
+  left: 118px;
+  top: 24px;
+}
+
+.Settingprofile-container {
+  max-width: 1298px;
+  position: relative;
+  top: 45px;
+  left: 35px;
+  margin: 0 auto;
+  background-color: #fff;
+}
+
+.Settingprofile-form-container {
+  margin-top: 1rem;
+}
+
+.Settingedit-header {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.Settingedit-profile {
+  color: #184e7f;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.Settingedit-underline {
+  position: relative;
+  width: 100%;
+  height: 4px;
+}
+
+.Settingblue-line {
+  position: absolute;
+  width: 100px;
+  height: 3px;
+  background-color: #184e7f;
+  z-index: 2;
+}
+
+.Settinggray-line {
+  position: absolute;
+  top: 2px;
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  z-index: 1;
+}
+
+.Settingprofile-form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.Settingprofile-form label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+.Settingprofile-form input {
+  height: 40px;
+  padding: 0 1rem;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+  outline: none;
+  transition: border 0.2s ease;
+  width: 45%;
+}
+
+.Settingprofile-form input:focus {
+  border-color: #184e7f;
+}
+
+.Settingprofile-form input[type="password"] {
+  letter-spacing: 1px;
+}
+
+.input-with-icon {
+  position: relative;
+  width: 48%;
+}
+
+.input-with-icon input {
+  padding-right: 35px;
+  width: 93%;
+}
+
+.tooltip-wrapper {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  width: max-content;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 6px 8px;
+  border-radius: 6px;
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 12px;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 10;
+}
+
+.tooltip-wrapper:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.info-icon {
+  font-size: 18px;
+  color: #888;
+}
+
+.Settingsave-btn {
+  background-color: #184E7f;
+  color: #fff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  width: 222px;
+  height: 50px;
+  justify-self: end;
+  margin-top: 10px;
+}
+
+.Settingsave-btn:hover {
+  background-color: #123c60;
+}
+
+.Settingsuccess-message {
+  color: green;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.Settingerror-message {
+  color: red;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+@media (max-width: 768px) {
+  .Setting-layout {
+    flex-direction: column;
+  }
+
+  .Setting-content {
+    padding: 1rem;
+  }
+
+  .Settingprofile-header h1 {
+    position: static;
+    font-size: 16px;
+    margin-bottom: 1rem;
+  }
+
+  .Settingprofile-container {
+    position: static;
+    top: 0;
+    left: 0;
+    padding: 1rem;
+    width: 100%;
+  }
+
+  .Settingprofile-form input,
+  .input-with-icon {
+    width: 100% !important;
+  }
+
+  .input-with-icon input {
+    width: 100%;
+  }
+
+  .Settingsave-btn {
+    width: 100%;
+    height: 48px;
+    font-size: 14px;
+    justify-self: center;
+  }
+
+  .Settingedit-profile {
+    font-size: 15px;
+  }
+
+  .Settingedit-header {
+    margin-bottom: 16px;
+  }
+}
