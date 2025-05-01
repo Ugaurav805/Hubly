@@ -37,7 +37,7 @@ const weeklyChatData = {
   datasets: [
     {
       label: "Chats",
-      data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      data: [1, 2, 0, 0, 0, 0, 0, 0, 0, 0],
       borderColor: "#00D907",
       backgroundColor: "#00D907",
       tension: 0.4,
@@ -103,7 +103,7 @@ const Analytics = () => {
                   transform="rotate(-90 57 57)"
                 />
               </svg>
-              <span className="progress-text">80%</span>
+              <span className="progress-text">25%</span>
             </div>
             <p className="stat-desc">
               A callback system on a website, as well as proactive invitations,
@@ -115,7 +115,7 @@ const Analytics = () => {
 
           <div className="stat-block">
             <h4 className="stat-title">Total Chats</h4>
-            <p className="stat-value">122 Chats</p>
+            <p className="stat-value">3 Chats</p>
             <p className="stat-desc">
               This metric shows the total number of chats for all Channels for
               the selected period.
