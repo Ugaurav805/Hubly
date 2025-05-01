@@ -3,19 +3,21 @@ import Sidebar from "../Sidebar/Sidebar";
 import "./Dashboard.css";
 import avatar from "../../assets/Profiles/profile 4.jpg";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import { toast } from "react-toastify";
 
 const Dashboard = () => {
-  const [activeTab, setActiveTab] = useState("all");
+  const [activeTab, setActiveTab] = useState("All Tickets");
   const [tickets, setTickets] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
 
-  // Fetch tickets from backend
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/chat/all"); // Adjust API route if needed
+        const res = await axios.get("http://localhost:5000/api/chat/all");
         setTickets(res.data);
       } catch (error) {
         toast.error("Failed to fetch tickets");
@@ -27,10 +29,13 @@ const Dashboard = () => {
   }, []);
 
   const filteredTickets = tickets.filter((ticket) => {
-    if (activeTab === "resolved") return ticket.status === "resolved";
-    if (activeTab === "unresolved") return ticket.status === "unresolved";
+    if (activeTab === "Resolved" && ticket.status !== "resolved") return false;
+    if (activeTab === "Unresolved" && ticket.status !== "unresolved") return false;
+    if (searchQuery && !ticket.message.toLowerCase().includes(searchQuery.toLowerCase())) return false;
     return true;
   });
+
+  const singleTicket = filteredTickets.length > 0 ? filteredTickets[0] : null;
 
   return (
     <div className="dashboard-wrapper">
@@ -38,51 +43,69 @@ const Dashboard = () => {
       <div className="dashboard-main">
         <h2 className="dashboard-title">Dashboard</h2>
 
+        <div className="search-wrapper">
+          <FontAwesomeIcon icon={faSearch} className="search-icon" />
+          <input
+            type="text"
+            className="search-input"
+            placeholder="Search for ticket"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </div>
+
         <div className="ticket-tabs">
-          {["all", "resolved", "unresolved"].map((tab) => (
+          {["All Tickets", "Resolved", "Unresolved"].map((tab) => (
             <div
               key={tab}
               className={`tab-item ${activeTab === tab ? "active" : ""}`}
               onClick={() => setActiveTab(tab)}
             >
-              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              {tab}
             </div>
           ))}
         </div>
 
         <div className="ticket-list">
-          {filteredTickets.length > 0 ? (
-            filteredTickets.map((ticket) => (
-              <div key={ticket._id} className="ticket-card">
-                <div className="ticket-header">
-                  <div className="ticket-id">
-                    <span className={`dot ${ticket.status}`} /> Ticket# {ticket.ticketId}
-                  </div>
-                  <div className="posted-time">Posted at {ticket.timestamp || "N/A"}</div>
+          {singleTicket ? (
+            <div className="ticket-card">
+              <div className="ticket-header">
+                <div className="ticket-id">
+                  <span className={`dot ${singleTicket.status}`} /> Ticket #
+                  {singleTicket.ticketId.replace("#ticket#", "")}
                 </div>
-                <div className="ticket-message">
-                  {ticket.message.length > 100
-                    ? `${ticket.message.slice(0, 100)}...`
-                    : ticket.message}
-                </div>
-                <div className="ticket-footer">
-                  <div className="user-info">
-                    <img src={avatar} alt={ticket.name} className="avatar" />
-                    <div>
-                      <div>{ticket.name}</div>
-                      <div className="contact">{ticket.phone}</div>
-                      <div className="contact">{ticket.email}</div>
-                    </div>
-                  </div>
-                  <button
-                    className="open-ticket"
-                    onClick={() => navigate(`/contact?ticketId=${ticket.ticketId}`)}
-                  >
-                    Open Ticket
-                  </button>
+                <div className="posted-time">
+                  Posted at {singleTicket.timestamp || "N/A"}
                 </div>
               </div>
-            ))
+              <div className="ticket-message">
+                {singleTicket.message.length > 100
+                  ? `${singleTicket.message.slice(0, 100)}...`
+                  : singleTicket.message}
+              </div>
+              <div className="ticket-footer">
+                <div className="user-info">
+                  <img
+                    src={avatar}
+                    alt={singleTicket.name}
+                    className="avatar"
+                  />
+                  <div>
+                    <div>{singleTicket.name}</div>
+                    <div className="contact">{singleTicket.phone}</div>
+                    <div className="contact">{singleTicket.email}</div>
+                  </div>
+                </div>
+                <button
+                  className="open-ticket"
+                  onClick={() =>
+                    navigate(`/contact?ticketId=${singleTicket.ticketId}`)
+                  }
+                >
+                  Open Ticket
+                </button>
+              </div>
+            </div>
           ) : (
             <div className="no-tickets">No tickets found.</div>
           )}

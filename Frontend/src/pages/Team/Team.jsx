@@ -139,7 +139,7 @@ const Team = () => {
             }}
             className="add-button"
           >
-            ➕ Add Team members
+            ➕+ Add Team members
           </button>
         </div>
 

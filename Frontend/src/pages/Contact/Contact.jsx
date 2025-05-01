@@ -8,9 +8,11 @@ const Contact = () => {
   const [tickets, setTickets] = useState([]);
   const [activeTicket, setActiveTicket] = useState(null);
   const [message, setMessage] = useState("");
+  const [teamMembers, setTeamMembers] = useState([]);
+  const [showStatusModal, setShowStatusModal] = useState(false);
+  const [newStatus, setNewStatus] = useState("");
 
   const location = useLocation();
-
   const queryParams = new URLSearchParams(location.search);
   const selectedTicketId = queryParams.get("ticketId");
 
@@ -24,19 +26,25 @@ const Contact = () => {
           const foundTicket = res.data.find((t) => t.ticketId === selectedTicketId);
           if (foundTicket) setActiveTicket(foundTicket);
         } else {
-          setActiveTicket(res.data[0] || null);
+          setActiveTicket(res.data.length ? res.data[0] : null);
         }
       } catch (error) {
         console.error("Failed to fetch tickets", error);
       }
     };
 
-    fetchTickets();
-  }, [selectedTicketId]);
+    const fetchTeamMembers = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/team");
+        setTeamMembers(res.data);
+      } catch (error) {
+        console.error("Failed to fetch team members", error);
+      }
+    };
 
-  const handleTicketSelect = (ticket) => {
-    setActiveTicket(ticket);
-  };
+    fetchTickets();
+    fetchTeamMembers();
+  }, [selectedTicketId]);
 
   const handleSendMessage = () => {
     if (!message.trim()) return;
@@ -59,7 +67,12 @@ const Contact = () => {
     setMessage("");
   };
 
-  const handleStatusChange = async (newStatus) => {
+  const openStatusModal = (status) => {
+    setNewStatus(status);
+    setShowStatusModal(true);
+  };
+
+  const handleConfirmStatusChange = async () => {
     try {
       await axios.put(`http://localhost:5000/api/chat/${activeTicket._id}/status`, {
         status: newStatus,
@@ -70,6 +83,8 @@ const Contact = () => {
       setTickets((prev) =>
         prev.map((t) => (t.ticketId === updatedTicket.ticketId ? updatedTicket : t))
       );
+
+      setShowStatusModal(false);
     } catch (error) {
       console.error("Failed to update ticket status", error);
     }
@@ -92,7 +107,7 @@ const Contact = () => {
                 className={`contactcenter-chat-item ${
                   activeTicket?.ticketId === ticket.ticketId ? "active" : ""
                 }`}
-                onClick={() => handleTicketSelect(ticket)}
+                onClick={() => setActiveTicket(ticket)}
               >
                 <div className="contactcenter-chat-name">{ticket.name}</div>
                 <div className="contactcenter-chat-preview">
@@ -104,7 +119,7 @@ const Contact = () => {
 
           <div className="contactcenter-chat-window">
             <h4>
-              {activeTicket ? `Ticket# ${activeTicket.ticketId}` : "No Ticket Selected"}
+              {activeTicket ? `Ticket #${activeTicket.ticketId.replace("#ticket#", "")}` : "No Ticket Selected"}
             </h4>
             <div className="contactcenter-chat-thread">
               {activeTicket?.chats?.map((chat, index) => (
@@ -140,13 +155,12 @@ const Contact = () => {
                 <hr />
                 <h4>Teammates</h4>
                 <select>
-                  <option>Joe Doe</option>
+                  {teamMembers.map((member) => (
+                    <option key={member._id}>{member.name}</option>
+                  ))}
                 </select>
                 <h4>Ticket Status</h4>
-                <select
-                  value={activeTicket.status}
-                  onChange={(e) => handleStatusChange(e.target.value)}
-                >
+                <select onChange={(e) => openStatusModal(e.target.value)} value={activeTicket.status}>
                   <option value="resolved">Resolved</option>
                   <option value="unresolved">Unresolved</option>
                 </select>
@@ -156,6 +170,19 @@ const Contact = () => {
             )}
           </div>
         </div>
+
+        {showStatusModal && (
+          <div className="modal-overlay">
+            <div className="modal">
+              <h2>Chat will be closed</h2>
+              <p>Are you sure you want to update the ticket status?</p>
+              <div className="modal-actions">
+                <button onClick={() => setShowStatusModal(false)} className="cancel">Cancel</button>
+                <button onClick={handleConfirmStatusChange} className="confirm">Confirm</button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
