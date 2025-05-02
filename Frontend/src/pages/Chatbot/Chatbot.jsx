@@ -51,7 +51,7 @@ const Chatbot = () => {
     const newTicketId = `${todayDate}${chat.length + 1}`;
 
     try {
-      await axios.post("http://localhost:5000/api/chat/initiate", {
+      await axios.post("https://hubly-ktvo.onrender.com/api/chat/initiate", {
         ...formData,
         ticketId: newTicketId,
         initialMessage: chat.length ? chat[0].text : "",
@@ -82,7 +82,7 @@ const Chatbot = () => {
     localStorage.setItem("hubly_chat", JSON.stringify(updatedChat));
 
     try {
-      const res = await axios.post("http://localhost:5000/api/chat/save", {
+      const res = await axios.post("https://hubly-ktvo.onrender.com/api/chat/save", {
         name: formData.name,
         message,
         ticketId,

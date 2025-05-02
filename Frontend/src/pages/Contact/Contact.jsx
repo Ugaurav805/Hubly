@@ -19,7 +19,7 @@ const Contact = () => {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/chat/all");
+        const res = await axios.get("https://hubly-ktvo.onrender.com/api/chat/all");
         setTickets(res.data);
 
         if (selectedTicketId) {
@@ -35,7 +35,7 @@ const Contact = () => {
 
     const fetchTeamMembers = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/team");
+        const res = await axios.get("https://hubly-ktvo.onrender.com/api/team");
         setTeamMembers(res.data);
       } catch (error) {
         console.error("Failed to fetch team members", error);
@@ -74,7 +74,7 @@ const Contact = () => {
 
   const handleConfirmStatusChange = async () => {
     try {
-      const res = await axios.put(`http://localhost:5000/api/chat/status/${activeTicket.ticketId}`, {
+      const res = await axios.put(`https://hubly-ktvo.onrender.com/api/chat/status/${activeTicket.ticketId}`, {
         status: newStatus,
       });
 

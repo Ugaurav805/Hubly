@@ -5,7 +5,7 @@ import { TeamContext } from "../../Context/TeamContext.jsx";
 import "./Team.css";
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000/api/team"; // Updated URL
+const BASE_URL = "https://hubly-ktvo.onrender.com/api/team"; // Updated URL
 
 const Team = () => {
   const { teamMembers, setTeamMembers } = useContext(TeamContext);

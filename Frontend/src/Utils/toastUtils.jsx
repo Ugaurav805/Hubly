@@ -2,14 +2,14 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const api = axios.create({
-  baseURL: "http://localhost:5000", // 👈 Use your local backend URL
+  baseURL: "https://hubly-ktvo.onrender.com", 
 });
 
 export const handleError = (error) => {
   console.error("API Error:", error);
   const errorMessage =
     error?.response?.data?.message || error?.message || "Something went wrong!";
-  toast.error(errorMessage); // Show toast error
+  toast.error(errorMessage); 
   return errorMessage;
 };
 

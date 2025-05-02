@@ -17,7 +17,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchTickets = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/chat/all");
+        const res = await axios.get("https://hubly-ktvo.onrender.com/api/chat/all");
         setTickets(res.data);
       } catch (error) {
         toast.error("Failed to fetch tickets");

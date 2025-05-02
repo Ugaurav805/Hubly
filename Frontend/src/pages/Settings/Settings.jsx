@@ -63,7 +63,7 @@ const Setting = () => {
         return;
       }
 
-      const response = await fetch("http://localhost:5000/auth/update-profile", {
+      const response = await fetch("https://hubly-ktvo.onrender.com/auth/update-profile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

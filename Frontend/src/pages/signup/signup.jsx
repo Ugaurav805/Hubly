@@ -76,7 +76,7 @@ function SignUp() {
     }
 
     try {
-      const url = "http://localhost:5000/api/auth/signup";
+      const url = "https://hubly-ktvo.onrender.com/api/auth/signup";
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
