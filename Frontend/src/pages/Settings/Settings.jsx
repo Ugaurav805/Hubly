@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Sidebar from "../Sidebar/Sidebar";
 import { FiInfo } from "react-icons/fi";
-import "./settings.css";
+import "./Settings.css";
 
 const Setting = () => {
   const [userData, setUserData] = useState({
