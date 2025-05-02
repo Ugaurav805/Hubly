@@ -37,41 +37,33 @@ const Chatbot = () => {
       timestamp: new Date().toLocaleTimeString(),
     };
 
-    const updatedChat = [userMsg];
-    setChat(updatedChat);
+    setChat([userMsg]);
     setInitialMessageSent(true);
     setMessage("");
 
-    localStorage.setItem("hubly_chat", JSON.stringify(updatedChat));
+    localStorage.setItem("hubly_chat", JSON.stringify([userMsg]));
     localStorage.setItem("hubly_initialMessageSent", "true");
   };
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    const today = new Date().toISOString().split("T")[0];
-    const newTicketId = `#ticket#${today}`;
-    setTicketId(newTicketId);
-    setFormSubmitted(true);
-
-    const initialMessage = chat.length ? chat[0] : null;
-
-    localStorage.setItem("hubly_chat", JSON.stringify(chat));
-    localStorage.setItem("hubly_ticketId", newTicketId);
+    const todayDate = new Date().toISOString().split("T")[0].replace(/-/g, "");
+    const newTicketId = `${todayDate}${chat.length + 1}`;
 
     try {
       await axios.post("http://localhost:5000/api/chat/initiate", {
         ...formData,
         ticketId: newTicketId,
-        initialMessage: initialMessage?.text || "",
-        timestamp: initialMessage?.timestamp || "",
+        initialMessage: chat.length ? chat[0].text : "",
+        timestamp: chat.length ? chat[0].timestamp : "",
       });
+
+      setTicketId(newTicketId);
+      setFormSubmitted(true);
+      localStorage.setItem("hubly_ticketId", newTicketId);
     } catch (error) {
       console.error("Error initiating chat:", error);
     }
-  };
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSend = async () => {
@@ -86,6 +78,7 @@ const Chatbot = () => {
     const updatedChat = [...chat, userMsg];
     setChat(updatedChat);
     setMessage("");
+
     localStorage.setItem("hubly_chat", JSON.stringify(updatedChat));
 
     try {
@@ -103,9 +96,9 @@ const Chatbot = () => {
           text: res.data.savedMessage.message,
           timestamp: res.data.savedMessage.timestamp,
         };
-        const chatWithBot = [...updatedChat, botMsg];
-        setChat(chatWithBot);
-        localStorage.setItem("hubly_chat", JSON.stringify(chatWithBot));
+
+        setChat([...updatedChat, botMsg]);
+        localStorage.setItem("hubly_chat", JSON.stringify([...updatedChat, botMsg]));
       }
     } catch (err) {
       console.error("Error sending message:", err);
@@ -153,29 +146,11 @@ const Chatbot = () => {
               <form className="chatbox-form" onSubmit={handleFormSubmit}>
                 <h4>Introduce Yourself</h4>
                 <label>Your Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                />
+                <input type="text" name="name" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required />
                 <label>Your Phone</label>
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  required
-                />
+                <input type="tel" name="phone" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} required />
                 <label>Your Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                />
+                <input type="email" name="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} required />
                 <button type="submit">Thank You!</button>
               </form>
             ) : (
@@ -192,14 +167,7 @@ const Chatbot = () => {
 
           {formSubmitted && (
             <div className="chatbox-footer">
-              <input
-                type="text"
-                placeholder="Write a message"
-                className="chatbox-input"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                onKeyDown={(e) => e.key === "Enter" && handleSend()}
-              />
+              <input type="text" placeholder="Write a message" className="chatbox-input" value={message} onChange={(e) => setMessage(e.target.value)} onKeyDown={(e) => e.key === "Enter" && handleSend()} />
               <button className="chatbox-send" onClick={handleSend}>
                 <FontAwesomeIcon icon={faPaperPlane} />
               </button>

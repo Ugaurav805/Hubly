@@ -74,17 +74,19 @@ const Contact = () => {
 
   const handleConfirmStatusChange = async () => {
     try {
-      await axios.put(`http://localhost:5000/api/chat/${activeTicket._id}/status`, {
+      const res = await axios.put(`http://localhost:5000/api/chat/status/${activeTicket.ticketId}`, {
         status: newStatus,
       });
 
-      const updatedTicket = { ...activeTicket, status: newStatus };
-      setActiveTicket(updatedTicket);
-      setTickets((prev) =>
-        prev.map((t) => (t.ticketId === updatedTicket.ticketId ? updatedTicket : t))
-      );
+      if (res.status === 200) {
+        const updatedTicket = { ...activeTicket, status: newStatus };
+        setActiveTicket(updatedTicket);
+        setTickets((prev) =>
+          prev.map((t) => (t.ticketId === updatedTicket.ticketId ? updatedTicket : t))
+        );
 
-      setShowStatusModal(false);
+        setShowStatusModal(false);
+      }
     } catch (error) {
       console.error("Failed to update ticket status", error);
     }
